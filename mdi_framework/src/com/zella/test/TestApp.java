@@ -23,7 +23,7 @@ public class TestApp extends Application {
 		primaryStage.setFullScreen(true);
 		primaryStage.show();
 
-		controller.gotoLogin();
+		controller.gotoScreen1();
 	}
 
 }

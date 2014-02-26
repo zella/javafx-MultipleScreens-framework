@@ -10,7 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
-public class LoginController implements Initializable, IControlledScreen {
+public class Screen1Controller implements Initializable, IControlledScreen {
 
 	MyScreenController myController;
 
@@ -20,8 +20,8 @@ public class LoginController implements Initializable, IControlledScreen {
 	}
 
 	@FXML
-	private void goToNext(ActionEvent event) {
-		myController.gotoNext();
+	private void goToScreen2(ActionEvent event) {
+		myController.gotoScreen2();
 	}
 
 	@Override

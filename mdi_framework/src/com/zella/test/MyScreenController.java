@@ -7,11 +7,11 @@ import com.zella.mdiframework.AbstractScreenController;
 
 public class MyScreenController extends AbstractScreenController {
 
-	public void gotoLogin() {
+	public void gotoScreen1() {
 		try {
 
 			// TODO extra params to controller for initialise
-			LoginController login = (LoginController) setScreen("/com/zella/test/loginctrl.fxml");
+			Screen1Controller login = (Screen1Controller) setScreen("/com/zella/test/screen1.fxml");
 			// This we can call controllers methods
 
 		}
@@ -22,9 +22,9 @@ public class MyScreenController extends AbstractScreenController {
 		}
 	}
 
-	public void gotoNext() {
+	public void gotoScreen2() {
 		try {
-			NextController next = (NextController) setScreen("/com/zella/test/nextctrl.fxml");
+			Screen2Controller next = (Screen2Controller) setScreen("/com/zella/test/screen2.fxml");
 		}
 
 		catch (Exception ex) {

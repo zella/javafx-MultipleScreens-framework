@@ -15,7 +15,7 @@ import jfxtras.labs.scene.control.window.Window;
 import com.zella.mdiframework.AbstractScreenController;
 import com.zella.mdiframework.IControlledScreen;
 
-public class NextController implements Initializable, IControlledScreen {
+public class Screen2Controller implements Initializable, IControlledScreen {
 
 	MyScreenController myController;
 
@@ -28,8 +28,8 @@ public class NextController implements Initializable, IControlledScreen {
 	}
 
 	@FXML
-	private void goToLogin(ActionEvent event) {
-		myController.gotoLogin();
+	private void goToScreen1(ActionEvent event) {
+		myController.gotoScreen1();
 	}
 
 	@FXML

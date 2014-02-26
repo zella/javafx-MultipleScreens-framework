@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zella.test.Screen2Controller">
+	<children>
+		<Button layoutX="214.1875" layoutY="92.5" mnemonicParsing="false" onAction="#goToScreen1" text="go to screen 1" /><Button layoutX="306.1875" layoutY="237.5" mnemonicParsing="false" onAction="#openInternalWindow" text="Open internal window" />
+	</children>
+</Pane>
