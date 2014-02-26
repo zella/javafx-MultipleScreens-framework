@@ -3,11 +3,8 @@ package com.zella.mdiframework;
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.zella.test.MyScreenController;
-
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 
