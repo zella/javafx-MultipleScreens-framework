@@ -3,17 +3,10 @@ package com.zella.mdiframework;
 import java.io.IOException;
 import java.io.InputStream;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
-import javafx.beans.property.DoubleProperty;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
-import javafx.util.Duration;
 
 public abstract class AbstractScreenController extends StackPane {
 
