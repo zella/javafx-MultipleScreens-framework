@@ -3,10 +3,17 @@ package com.zella.mdiframework;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.beans.property.DoubleProperty;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
+import javafx.util.Duration;
 
 public abstract class AbstractScreenController extends StackPane {
 
@@ -26,11 +33,7 @@ public abstract class AbstractScreenController extends StackPane {
 			is.close();
 		}
 
-		// TODO animations in extra protected method
-
-		if (!getChildren().isEmpty())
-			getChildren().remove(0); // remove the displayed screen
-		getChildren().add(page);
+		replacePage(page);
 
 		Initializable controller = (Initializable) loader.getController();
 
@@ -38,5 +41,20 @@ public abstract class AbstractScreenController extends StackPane {
 
 		return controller;
 	}
+
+	/**
+	 * You can make animation in this method
+	 * 
+	 * @param page
+	 */
+	protected void replacePage(Parent page) {
+		// basicaly no animation
+		if (!getChildren().isEmpty())
+			getChildren().remove(0);
+		getChildren().add(page);
+	}
+
+	// TODO refactor
+	// TODO different animations on every screen
 
 }

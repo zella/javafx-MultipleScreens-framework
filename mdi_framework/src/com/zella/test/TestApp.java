@@ -18,9 +18,11 @@ public class TestApp extends Application {
 
 		Group root = new Group();
 		root.getChildren().addAll(controller);
-		Scene scene = new Scene(root);
+		// set your app dimension
+		Scene scene = new Scene(root, 800, 600);
 		primaryStage.setScene(scene);
-		primaryStage.setFullScreen(true);
+		// also work with full screen
+		// primaryStage.setFullScreen(true);
 		primaryStage.show();
 
 		controller.gotoScreen1();
