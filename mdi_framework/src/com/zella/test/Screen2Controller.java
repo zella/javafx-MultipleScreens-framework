@@ -12,7 +12,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBoxBuilder;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import jfxtras.labs.scene.control.window.CloseIcon;
@@ -33,12 +32,10 @@ public class Screen2Controller implements Initializable, IControlledScreen {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-
 	}
 
 	public void setParams(String params) {
 		this.paramsFromFirstScreen = params;
-
 	}
 
 	@FXML

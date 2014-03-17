@@ -14,9 +14,6 @@ public abstract class AbstractScreenController extends StackPane {
 		FXMLLoader loader = new FXMLLoader();
 		InputStream is = AbstractScreenController.class
 				.getResourceAsStream(fxml);
-		// TODO what is this, DO IT?
-		// loader.setBuilderFactory(new JavaFXBuilderFactory());
-		// loader.setLocation(MyScreenController.class.getResource(fxml));
 		Parent page = null;
 		try {
 			page = (Parent) loader.load(is);

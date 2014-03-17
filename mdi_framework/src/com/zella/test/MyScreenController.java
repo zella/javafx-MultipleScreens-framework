@@ -18,11 +18,7 @@ public class MyScreenController extends AbstractScreenController {
 
 	public void gotoScreen1() {
 		try {
-
-			// TODO extra params to controller for initialise
-			Screen1Controller login = (Screen1Controller) setScreen("/com/zella/test/screen1.fxml");
-			// This we can call controllers methods
-
+			Screen1Controller loginCtrl = (Screen1Controller) setScreen("/com/zella/test/screen1.fxml");
 		}
 
 		catch (Exception ex) {
@@ -43,6 +39,7 @@ public class MyScreenController extends AbstractScreenController {
 		}
 	}
 
+	// Make custom animation
 	@Override
 	protected void replacePage(final Parent page) {
 		final DoubleProperty opacity = opacityProperty();
