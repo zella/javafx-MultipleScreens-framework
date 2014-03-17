@@ -6,7 +6,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zella.test.Screen1Controller">
 	<children>
-		<Button layoutX="36.0" layoutY="56.0" mnemonicParsing="false" onAction="#goToScreen2" text="goto screen 2" />
+		<Button layoutX="36.0" layoutY="56.0" mnemonicParsing="false" onAction="#goToScreen2" text="goto screen 2" /><TextField fx:id="label" layoutX="36.24609375" layoutY="21.5" promptText="params to second screen" text="params to second screen" />
 
 	</children>
 </Pane>
