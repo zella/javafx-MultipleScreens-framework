@@ -19,11 +19,18 @@ public class Screen2Controller implements Initializable, IControlledScreen {
 
 	MyScreenController myController;
 
+	String paramsFromFirstScreen;
+
 	@FXML
 	private Pane pane;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+
+	}
+
+	public void setParams(String params) {
+		this.paramsFromFirstScreen = params;
 
 	}
 
@@ -44,7 +51,7 @@ public class Screen2Controller implements Initializable, IControlledScreen {
 		w.getRightIcons().add(new MinimizeIcon(w));
 		// add some content
 		w.getContentPane().getChildren()
-				.add(new Label("Content... \nof the window"));
+				.add(new Label(paramsFromFirstScreen));
 		w.getContentPane().getChildren().add(w);
 		// add the window to the canvas
 		pane.getChildren().add(w);

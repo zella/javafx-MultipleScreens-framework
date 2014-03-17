@@ -31,9 +31,10 @@ public class MyScreenController extends AbstractScreenController {
 		}
 	}
 
-	public void gotoScreen2() {
+	public void gotoScreen2(String sampleParams) {
 		try {
-			Screen2Controller next = (Screen2Controller) setScreen("/com/zella/test/screen2.fxml");
+			Screen2Controller nextCtrl = (Screen2Controller) setScreen("/com/zella/test/screen2.fxml");
+			nextCtrl.setParams(sampleParams);
 		}
 
 		catch (Exception ex) {

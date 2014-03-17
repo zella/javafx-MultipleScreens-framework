@@ -21,7 +21,7 @@ public class Screen1Controller implements Initializable, IControlledScreen {
 
 	@FXML
 	private void goToScreen2(ActionEvent event) {
-		myController.gotoScreen2();
+		myController.gotoScreen2("sample param");
 	}
 
 	@Override
