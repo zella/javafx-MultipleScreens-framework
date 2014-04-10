@@ -1,4 +1,4 @@
-package com.zella.test;
+package com.zella.sample;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,7 +18,7 @@ public class MyScreenController extends AbstractScreenController {
 
 	public void gotoScreen1() {
 		try {
-			Screen1Controller loginCtrl = (Screen1Controller) setScreen("/com/zella/test/screen1.fxml");
+			Screen1Controller loginCtrl = (Screen1Controller) setScreen("/view/screen1.fxml");
 		}
 
 		catch (Exception ex) {
@@ -29,7 +29,7 @@ public class MyScreenController extends AbstractScreenController {
 
 	public void gotoScreen2(String sampleParams) {
 		try {
-			Screen2Controller nextCtrl = (Screen2Controller) setScreen("/com/zella/test/screen2.fxml");
+			Screen2Controller nextCtrl = (Screen2Controller) setScreen("/view/screen2.fxml");
 			nextCtrl.setParams(sampleParams);
 		}
 

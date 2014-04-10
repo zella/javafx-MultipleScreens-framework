@@ -10,17 +10,25 @@ import javafx.scene.layout.StackPane;
 
 public abstract class AbstractScreenController extends StackPane {
 
-	protected Initializable setScreen(String fxml) throws IOException {
+	protected Initializable setScreen(String fxml) {
 		FXMLLoader loader = new FXMLLoader();
 		InputStream is = AbstractScreenController.class
 				.getResourceAsStream(fxml);
 		Parent page = null;
 		try {
-			page = (Parent) loader.load(is);
+			try {
+				page = (Parent) loader.load(is);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 
 		finally {
-			is.close();
+			try {
+				is.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 
 		replacePage(page);
@@ -30,6 +38,15 @@ public abstract class AbstractScreenController extends StackPane {
 		((IControlledScreen) controller).setScreenParent(this);
 
 		return controller;
+	}
+
+	protected void setScreen(Parent page) {
+		if (page instanceof IControlledScreen)
+			((IControlledScreen) page).setScreenParent(this);
+		else
+			throw new ClassCastException(
+					"Your screen should implement IControlledScreen interface");
+		replacePage(page);
 	}
 
 	/**
@@ -43,8 +60,5 @@ public abstract class AbstractScreenController extends StackPane {
 			getChildren().remove(0);
 		getChildren().add(page);
 	}
-
-	// TODO refactor
-	// TODO different animations on every screen
 
 }

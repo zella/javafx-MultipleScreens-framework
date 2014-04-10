@@ -1,4 +1,4 @@
-package com.zella.test;
+package com.zella.sample;
 
 import java.net.URL;
 import java.util.ResourceBundle;
