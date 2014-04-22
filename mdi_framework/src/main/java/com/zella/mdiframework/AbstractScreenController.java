@@ -10,6 +10,8 @@ import javafx.scene.layout.StackPane;
 
 public abstract class AbstractScreenController extends StackPane {
 
+	private IDestroyable destroyController;
+
 	protected Initializable setScreen(String fxml) {
 		FXMLLoader loader = new FXMLLoader();
 		InputStream is = AbstractScreenController.class
@@ -31,9 +33,16 @@ public abstract class AbstractScreenController extends StackPane {
 			}
 		}
 
+		if (destroyController != null)
+			destroyController.onDestroy();
 		replacePage(page);
 
 		Initializable controller = (Initializable) loader.getController();
+
+		if (controller instanceof IDestroyable)
+			destroyController = (IDestroyable) controller;
+		else
+			destroyController = null;
 
 		((IControlledScreen) controller).setScreenParent(this);
 

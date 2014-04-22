@@ -20,8 +20,10 @@ import jfxtras.labs.scene.control.window.Window;
 
 import com.zella.mdiframework.AbstractScreenController;
 import com.zella.mdiframework.IControlledScreen;
+import com.zella.mdiframework.IDestroyable;
 
-public class Screen2Controller implements Initializable, IControlledScreen {
+public class Screen2Controller implements Initializable, IControlledScreen,
+		IDestroyable {
 
 	MyScreenController myController;
 
@@ -78,6 +80,11 @@ public class Screen2Controller implements Initializable, IControlledScreen {
 	public void setScreenParent(AbstractScreenController screenController) {
 		myController = (MyScreenController) screenController;
 
+	}
+
+	@Override
+	public void onDestroy() {
+		System.out.println("onDestroy");
 	}
 
 }
