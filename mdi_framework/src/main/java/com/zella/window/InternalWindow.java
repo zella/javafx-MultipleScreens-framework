@@ -2,14 +2,41 @@ package com.zella.window;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 
-public class InternalWindow extends Parent {
+public class InternalWindow extends Region {
+
+	private boolean RESIZE_BOTTOM;
+	private boolean RESIZE_RIGHT;
+	// TODO need layout logic
+	private boolean RESIZE_TOP;
+	private boolean RESIZE_LEFT;
+
+	private boolean MOVABLE = true;
+
+	private boolean isResizable = false;
+
+	/**
+	 * Allow to resize window
+	 * 
+	 * @param isResizable
+	 * @param mouseBorder
+	 *            in pixels
+	 * @param changeCursorOnMove
+	 *            change cursor on mouse move above
+	 */
+	public void setResizable(boolean isResizable, double mouseBorder,
+			boolean changeCursorOnMove) {
+		this.isResizable = isResizable;
+		initResizeLogic(mouseBorder, changeCursorOnMove);
+	}
 
 	private double mX;
 	private double mY;
@@ -38,6 +65,7 @@ public class InternalWindow extends Parent {
 		mX = x;
 		mY = y;
 		initDefaultWindow(content, title);
+
 	}
 
 	private void initDefaultWindow(Node content, String title) {
@@ -46,6 +74,7 @@ public class InternalWindow extends Parent {
 		getChildren().add(pane);
 		// all focusable
 		makeFocusable(this, true);
+		setResizable(true, 4, true);
 	}
 
 	public void setXY(double x, double y) {
@@ -62,6 +91,7 @@ public class InternalWindow extends Parent {
 		getChildren().add(node);
 	}
 
+	// TODO incapsulate default customization
 	private BorderPane makeDefaultBorderPane(String title) {
 		BorderPane pane = new BorderPane();
 		// pane.setPrefSize(500, 600); TODO
@@ -95,14 +125,14 @@ public class InternalWindow extends Parent {
 	public void makeDragable(Node what, boolean isMovable) {
 		final Delta dragDelta = new Delta();
 		what.setOnMousePressed(mouseEvent -> {
-			if (isMovable) {
+			if (isMovable && MOVABLE) {
 				dragDelta.x = getLayoutX() - mouseEvent.getScreenX();
 				dragDelta.y = getLayoutY() - mouseEvent.getScreenY();
 			}
 			toFront();
 		});
 		what.setOnMouseDragged(mouseEvent -> {
-			if (isMovable) {
+			if (isMovable && MOVABLE) {
 				setLayoutX(mouseEvent.getScreenX() + dragDelta.x);
 				setLayoutY(mouseEvent.getScreenY() + dragDelta.y);
 			}
@@ -122,8 +152,68 @@ public class InternalWindow extends Parent {
 		});
 
 	}
-	
-	//TODO make resizable
+
+	// TODO make resizable
+
+	private void initResizeLogic(double mouseBorder, boolean changeCursor) {
+		setOnMouseMoved(mouseEvent -> {
+			if (isResizable) {
+
+				double mouseX = mouseEvent.getX();
+				double mouseY = mouseEvent.getY();
+
+				double width = this.boundsInLocalProperty().get().getWidth();
+				double height = this.boundsInLocalProperty().get().getHeight();
+
+				if (Math.abs(mouseX - width) < mouseBorder + 3
+						&& Math.abs(mouseY - height) < mouseBorder + 3) {
+					RESIZE_RIGHT = true;
+					RESIZE_BOTTOM = true;
+					if (changeCursor)
+						this.setCursor(Cursor.NW_RESIZE);
+				} else if (Math.abs(mouseX - width) < mouseBorder) {
+
+					RESIZE_RIGHT = true;
+					RESIZE_BOTTOM = false;
+					if (changeCursor)
+						this.setCursor(Cursor.E_RESIZE);
+				} else if (Math.abs(mouseY - height) < mouseBorder) {
+
+					RESIZE_BOTTOM = true;
+					RESIZE_RIGHT = false;
+					if (changeCursor)
+						this.setCursor(Cursor.N_RESIZE);
+				} else {
+					RESIZE_BOTTOM = false;
+					RESIZE_RIGHT = false;
+					if (changeCursor)
+						this.setCursor(Cursor.DEFAULT);
+				}
+
+				if (RESIZE_BOTTOM || RESIZE_RIGHT)
+					MOVABLE = false;
+				else
+					MOVABLE = true;
+			}
+		});
+		setOnMouseDragged(mouseEvent -> {
+			if (isResizable) {
+				Node node = getChildren().get(0);
+				if (!(node instanceof Pane))
+					throw new ClassCastException(
+							"Resizing avilable only for Pane");
+				Pane n = (Pane) node;
+				if (RESIZE_BOTTOM && RESIZE_RIGHT) {
+					n.setPrefSize(mouseEvent.getX(), mouseEvent.getY());
+				} else if (RESIZE_RIGHT) {
+					n.setPrefWidth(mouseEvent.getX());
+
+				} else if (RESIZE_BOTTOM) {
+					n.setPrefHeight(mouseEvent.getY());
+				}
+			}
+		});
+	}
 
 	public static class DefaultWindowCloseEventHandler implements
 			EventHandler<ActionEvent> {

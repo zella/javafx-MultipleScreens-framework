@@ -60,7 +60,7 @@ public class Screen2Controller implements Initializable, IControlledScreen,
 		// Build custom title bar
 		BorderPane titleBar = new BorderPane();
 		titleBar.setStyle("-fx-background-color: red; -fx-padding: 3");
-		Label label = new Label("My title");
+		Label label = new Label(paramsFromFirstScreen);
 		label.setStyle("-fx-text-fill: green;");
 		titleBar.setLeft(label);
 		Button closeButton = new Button("close");
@@ -72,6 +72,7 @@ public class Screen2Controller implements Initializable, IControlledScreen,
 		windowPane.setStyle("-fx-border-width: 1; -fx-border-color: black");
 		windowPane.setTop(titleBar);
 		w.makeFocusable(windowPane, true);
+		w.setResizable(true, 10, true);
 		// set contnet
 		windowPane.setCenter(imageView);
 		// set all above to window
@@ -85,7 +86,7 @@ public class Screen2Controller implements Initializable, IControlledScreen,
 	@FXML
 	private void openDefaultZellaWindow(ActionEvent event) {
 		ImageView imageView = new ImageView("/assets/stub.png");
-		InternalWindow w = new InternalWindow(imageView, "Zella's MDI window",
+		InternalWindow w = new InternalWindow(imageView, paramsFromFirstScreen,
 				200, 100);
 		pane.getChildren().add(w);
 
