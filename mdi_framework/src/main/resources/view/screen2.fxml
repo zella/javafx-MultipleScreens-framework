@@ -6,6 +6,6 @@
 
 <Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zella.sample.Screen2Controller">
 	<children>
-		<Button layoutX="214.1875" layoutY="92.5" mnemonicParsing="false" onAction="#goToScreen1" text="go to screen 1" /><Button layoutX="306.0" layoutY="238.0" mnemonicParsing="false" onAction="#openInternalWindow" prefHeight="25.0" prefWidth="143.0" text="Open internal window" /><Button layoutX="306.0" layoutY="276.0" mnemonicParsing="false" onAction="#openNewStageWindow" text="Open newstage window" />
+		<Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToScreen1" text="go to screen 1" /><Button layoutX="306.0" layoutY="238.0" mnemonicParsing="false" onAction="#openInternalWindow" prefHeight="25.0" prefWidth="161.0" text="Open internal window" /><Button layoutX="306.0" layoutY="276.0" mnemonicParsing="false" onAction="#openNewStageWindow" prefHeight="25.0" prefWidth="161.0" text="Open newstage window" /><Button layoutX="306.0" layoutY="200.0" mnemonicParsing="false" onAction="#openDefaultZellaWindow" prefHeight="25.0" prefWidth="161.0" text="Open default zella window" /><Button layoutX="306.0" layoutY="166.0" mnemonicParsing="false" onAction="#openZellaWindow" prefHeight="25.0" prefWidth="161.0" text="Open zella window" />
 	</children>
 </Pane>

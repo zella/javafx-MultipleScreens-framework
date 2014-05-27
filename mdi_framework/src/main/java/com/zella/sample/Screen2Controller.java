@@ -9,7 +9,10 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBoxBuilder;
 import javafx.stage.Modality;
@@ -21,6 +24,8 @@ import jfxtras.labs.scene.control.window.Window;
 import com.zella.mdiframework.AbstractScreenController;
 import com.zella.mdiframework.IControlledScreen;
 import com.zella.mdiframework.IDestroyable;
+import com.zella.window.InternalWindow;
+import com.zella.window.InternalWindow.DefaultWindowCloseEventHandler;
 
 public class Screen2Controller implements Initializable, IControlledScreen,
 		IDestroyable {
@@ -43,6 +48,47 @@ public class Screen2Controller implements Initializable, IControlledScreen,
 	@FXML
 	private void goToScreen1(ActionEvent event) {
 		myController.gotoScreen1();
+	}
+
+	@FXML
+	private void openZellaWindow(ActionEvent event) {
+		ImageView imageView = new ImageView("/assets/stub.png");
+
+		// Build custom window
+		InternalWindow w = new InternalWindow();
+
+		// Build custom title bar
+		BorderPane titleBar = new BorderPane();
+		titleBar.setStyle("-fx-background-color: red; -fx-padding: 3");
+		Label label = new Label("My title");
+		label.setStyle("-fx-text-fill: green;");
+		titleBar.setLeft(label);
+		Button closeButton = new Button("close");
+		closeButton.setOnAction(new DefaultWindowCloseEventHandler(w));
+		titleBar.setRight(closeButton);
+		w.makeDragable(titleBar, true);
+		// Build custom window
+		BorderPane windowPane = new BorderPane();
+		windowPane.setStyle("-fx-border-width: 1; -fx-border-color: black");
+		windowPane.setTop(titleBar);
+		w.makeFocusable(windowPane, true);
+		// set contnet
+		windowPane.setCenter(imageView);
+		// set all above to window
+		w.setWindow(windowPane);
+
+		w.setXY(50, 50);
+		pane.getChildren().add(w);
+
+	}
+
+	@FXML
+	private void openDefaultZellaWindow(ActionEvent event) {
+		ImageView imageView = new ImageView("/assets/stub.png");
+		InternalWindow w = new InternalWindow(imageView, "Zella's MDI window",
+				200, 100);
+		pane.getChildren().add(w);
+
 	}
 
 	@FXML
