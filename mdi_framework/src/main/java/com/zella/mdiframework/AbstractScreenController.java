@@ -8,6 +8,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 
+/**
+ * 
+ * @author Andrey Zelyaev
+ */
 public abstract class AbstractScreenController extends StackPane {
 
 	private IDestroyable destroyController;

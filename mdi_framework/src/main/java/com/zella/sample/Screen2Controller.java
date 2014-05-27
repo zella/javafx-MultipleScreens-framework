@@ -76,7 +76,7 @@ public class Screen2Controller implements Initializable, IControlledScreen,
 		// set contnet
 		windowPane.setCenter(imageView);
 		// set all above to window
-		w.setWindow(windowPane);
+		w.setRoot(windowPane);
 
 		w.setXY(50, 50);
 		pane.getChildren().add(w);
@@ -93,7 +93,7 @@ public class Screen2Controller implements Initializable, IControlledScreen,
 	}
 
 	@FXML
-	private void openInternalWindow(ActionEvent event) {
+	private void openJfxtrasWindow(ActionEvent event) {
 
 		Window w = new Window("My MDI Window");
 		// define the initial window size

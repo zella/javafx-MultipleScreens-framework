@@ -11,6 +11,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 
+/**
+ * 
+ * Fully customizable MDI window. Construct your layout and just setRoot(layout)
+ * 
+ * @author Andrey Zelyaev
+ *
+ */
 public class InternalWindow extends Region {
 
 	private boolean RESIZE_BOTTOM;
@@ -23,31 +30,15 @@ public class InternalWindow extends Region {
 
 	private boolean isResizable = false;
 
-	/**
-	 * Allow to resize window
-	 * 
-	 * @param isResizable
-	 * @param mouseBorder
-	 *            in pixels
-	 * @param changeCursorOnMove
-	 *            change cursor on mouse move above
-	 */
-	public void setResizable(boolean isResizable, double mouseBorder,
-			boolean changeCursorOnMove) {
-		this.isResizable = isResizable;
-		initResizeLogic(mouseBorder, changeCursorOnMove);
-	}
-
 	private double mX;
 	private double mY;
 
 	/**
 	 * Creates fully customizable window.
 	 * 
-	 * You need customize window with setWindow() and setXY() methods
+	 * You need customize window with setRoot() and other methods
 	 */
 	public InternalWindow() {
-
 	}
 
 	/**
@@ -65,7 +56,6 @@ public class InternalWindow extends Region {
 		mX = x;
 		mY = y;
 		initDefaultWindow(content, title);
-
 	}
 
 	private void initDefaultWindow(Node content, String title) {
@@ -75,6 +65,21 @@ public class InternalWindow extends Region {
 		// all focusable
 		makeFocusable(this, true);
 		setResizable(true, 4, true);
+	}
+
+	/**
+	 * Allow to resize window
+	 * 
+	 * @param isResizable
+	 * @param mouseBorder
+	 *            in pixels
+	 * @param changeCursorOnMove
+	 *            change cursor on mouse move above
+	 */
+	public void setResizable(boolean isResizable, double mouseBorder,
+			boolean changeCursorOnMove) {
+		this.isResizable = isResizable;
+		initResizeLogic(mouseBorder, changeCursorOnMove);
 	}
 
 	public void setXY(double x, double y) {
@@ -87,33 +92,8 @@ public class InternalWindow extends Region {
 	 * 
 	 * @param node
 	 */
-	public void setWindow(Node node) {
+	public void setRoot(Node node) {
 		getChildren().add(node);
-	}
-
-	// TODO incapsulate default customization
-	private BorderPane makeDefaultBorderPane(String title) {
-		BorderPane pane = new BorderPane();
-		// pane.setPrefSize(500, 600); TODO
-		pane.setStyle("-fx-border-width: 1; -fx-border-color: burlywood");
-		pane.setTop(buildDefaultTitleBar(title));
-		this.setLayoutX(mX);
-		this.setLayoutY(mY);
-		return pane;
-	}
-
-	private Node buildDefaultTitleBar(String title) {
-		BorderPane pane = new BorderPane();
-		pane.setStyle("-fx-background-color: burlywood; -fx-padding: 5");
-		Label label = new Label(title);
-		label.setStyle("-fx-text-fill: midnightblue;");
-		pane.setLeft(label);
-
-		Button closeButton = new Button("X");
-		closeButton.setOnAction(new DefaultWindowCloseEventHandler(this));
-		pane.setRight(closeButton);
-		makeDragable(pane, true);
-		return pane;
 	}
 
 	/**
@@ -153,7 +133,29 @@ public class InternalWindow extends Region {
 
 	}
 
-	// TODO make resizable
+	// TODO incapsulate default customization
+	private BorderPane makeDefaultBorderPane(String title) {
+		BorderPane pane = new BorderPane();
+		pane.setStyle("-fx-border-width: 1; -fx-border-color: burlywood");
+		pane.setTop(buildDefaultTitleBar(title));
+		this.setLayoutX(mX);
+		this.setLayoutY(mY);
+		return pane;
+	}
+
+	private Node buildDefaultTitleBar(String title) {
+		BorderPane pane = new BorderPane();
+		pane.setStyle("-fx-background-color: burlywood; -fx-padding: 5");
+		Label label = new Label(title);
+		label.setStyle("-fx-text-fill: midnightblue;");
+		pane.setLeft(label);
+
+		Button closeButton = new Button("X");
+		closeButton.setOnAction(new DefaultWindowCloseEventHandler(this));
+		pane.setRight(closeButton);
+		makeDragable(pane, true);
+		return pane;
+	}
 
 	private void initResizeLogic(double mouseBorder, boolean changeCursor) {
 		setOnMouseMoved(mouseEvent -> {
@@ -227,7 +229,7 @@ public class InternalWindow extends Region {
 		@Override
 		public void handle(ActionEvent event) {
 			Parent p = mWindow.getParent();
-			if (!(p instanceof Pane)) // TODO seems bad
+			if (!(p instanceof Pane)) // TODO seems bad?
 				throw new ClassCastException(
 						"You need implement setOnClose themselves");
 			Pane parentPane = (Pane) p;
