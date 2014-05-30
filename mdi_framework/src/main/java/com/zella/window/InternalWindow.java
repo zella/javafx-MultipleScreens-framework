@@ -7,6 +7,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.RotateEvent;
+import javafx.scene.input.ZoomEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
@@ -67,14 +69,40 @@ public class InternalWindow extends Region {
 		setResizable(true, 4, true);
 	}
 
+	public void setMultitouch(boolean isMt) {
+		initMultitouch(isMt);
+	}
+
+	private void initMultitouch(boolean isMt) {
+		setOnZoom(new EventHandler<ZoomEvent>() {
+			@Override
+			public void handle(ZoomEvent event) {
+				if (isMt) {
+					setScaleX(getScaleX() * event.getZoomFactor());
+					setScaleY(getScaleY() * event.getZoomFactor());
+					event.consume();
+				}
+			}
+		});
+		setOnRotate(new EventHandler<RotateEvent>() {
+			@Override
+			public void handle(RotateEvent event) {
+				if (isMt) {
+					setRotate(getRotate() + event.getAngle());
+					event.consume();
+				}
+			}
+		});
+	}
+
 	/**
 	 * Allow to resize window
 	 * 
 	 * @param isResizable
 	 * @param mouseBorder
 	 *            in pixels
-	 * @param changeCursorOnMove
-	 *            change cursor on mouse move above
+	 * @param change
+	 *            CursorOnMove change cursor on mouse move above
 	 */
 	public void setResizable(boolean isResizable, double mouseBorder,
 			boolean changeCursorOnMove) {

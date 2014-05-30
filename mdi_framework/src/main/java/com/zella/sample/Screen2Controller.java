@@ -73,6 +73,7 @@ public class Screen2Controller implements Initializable, IControlledScreen,
 		windowPane.setTop(titleBar);
 		w.makeFocusable(windowPane, true);
 		w.setResizable(true, 10, true);
+		w.setMultitouch(true);
 		// set contnet
 		windowPane.setCenter(imageView);
 		// set all above to window
