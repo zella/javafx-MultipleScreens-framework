@@ -52,9 +52,10 @@ public class Screen2Controller implements Initializable, IControlledScreen,
 
 	@FXML
 	private void openZellaWindow(ActionEvent event) {
+		// Window content
 		ImageView imageView = new ImageView("/assets/stub.png");
 
-		// Build custom window
+		// Custom window
 		InternalWindow w = new InternalWindow();
 
 		// Build custom title bar
@@ -66,19 +67,22 @@ public class Screen2Controller implements Initializable, IControlledScreen,
 		Button closeButton = new Button("close");
 		closeButton.setOnAction(new DefaultWindowCloseEventHandler(w));
 		titleBar.setRight(closeButton);
-		w.makeDragable(titleBar, true);
+
 		// Build custom window
 		BorderPane windowPane = new BorderPane();
 		windowPane.setStyle("-fx-border-width: 1; -fx-border-color: black");
 		windowPane.setTop(titleBar);
-		w.makeFocusable(windowPane, true);
-		w.setResizable(true, 10, true);
-		w.setMultitouch(true);
 		// set contnet
 		windowPane.setCenter(imageView);
-		// set all above to window
-		w.setRoot(windowPane);
 
+		w.setRoot(windowPane);
+		w.makeDragable(titleBar, true);
+		w.makeFocusable(windowPane, true);
+		w.setResizable(true, 10, true);
+		w.setMultitouch(false, true);
+		w.setDestroyable(() -> {
+			System.out.println("destroy resourses on close");
+		});
 		w.setXY(50, 50);
 		pane.getChildren().add(w);
 

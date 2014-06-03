@@ -1,5 +1,7 @@
 package com.zella.window;
 
+import com.zella.mdiframework.IDestroyable;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
@@ -21,6 +23,8 @@ import javafx.scene.layout.Region;
  *
  */
 public class InternalWindow extends Region {
+
+	IDestroyable mDestroyable;
 
 	private boolean RESIZE_BOTTOM;
 	private boolean RESIZE_RIGHT;
@@ -69,15 +73,21 @@ public class InternalWindow extends Region {
 		setResizable(true, 4, true);
 	}
 
-	public void setMultitouch(boolean isMt) {
-		initMultitouch(isMt);
+	/**
+	 * Enable mt for window
+	 * 
+	 * @param rotate
+	 * @param pinchZoom
+	 */
+	public void setMultitouch(boolean rotate, boolean pinchZoom) {
+		initMultitouch(rotate, pinchZoom);
 	}
 
-	private void initMultitouch(boolean isMt) {
+	private void initMultitouch(boolean rotate, boolean pinchZoom) {
 		setOnZoom(new EventHandler<ZoomEvent>() {
 			@Override
 			public void handle(ZoomEvent event) {
-				if (isMt) {
+				if (pinchZoom) {
 					setScaleX(getScaleX() * event.getZoomFactor());
 					setScaleY(getScaleY() * event.getZoomFactor());
 					event.consume();
@@ -87,7 +97,7 @@ public class InternalWindow extends Region {
 		setOnRotate(new EventHandler<RotateEvent>() {
 			@Override
 			public void handle(RotateEvent event) {
-				if (isMt) {
+				if (rotate) {
 					setRotate(getRotate() + event.getAngle());
 					event.consume();
 				}
@@ -101,8 +111,8 @@ public class InternalWindow extends Region {
 	 * @param isResizable
 	 * @param mouseBorder
 	 *            in pixels
-	 * @param change
-	 *            CursorOnMove change cursor on mouse move above
+	 * @param changeCursorOnMove
+	 *            change cursor on mouse move above
 	 */
 	public void setResizable(boolean isResizable, double mouseBorder,
 			boolean changeCursorOnMove) {
@@ -148,7 +158,7 @@ public class InternalWindow extends Region {
 	}
 
 	/**
-	 * Make node focusable by mouse
+	 * Make node focusable(bring to front) by mouse
 	 * 
 	 * @param what
 	 * @param isFocusable
@@ -159,6 +169,16 @@ public class InternalWindow extends Region {
 			toFront();
 		});
 
+	}
+
+	/**
+	 * set destroyable if you need dispose specific resources
+	 * 
+	 * @param destroyable
+	 *            call inside {@link DefaultWindowCloseEventHandler}
+	 */
+	public void setDestroyable(IDestroyable destroyable) {
+		this.mDestroyable = destroyable;
 	}
 
 	// TODO incapsulate default customization
@@ -256,6 +276,8 @@ public class InternalWindow extends Region {
 
 		@Override
 		public void handle(ActionEvent event) {
+			if (mWindow.mDestroyable != null)
+				mWindow.mDestroyable.onDestroy();
 			Parent p = mWindow.getParent();
 			if (!(p instanceof Pane)) // TODO seems bad?
 				throw new ClassCastException(

@@ -2,7 +2,7 @@ package com.zella.mdiframework;
 
 /**
  * Implement this interface if you need to dispose specific resources in
- * controller
+ * controller or internal window
  * 
  * @author zella
  *
